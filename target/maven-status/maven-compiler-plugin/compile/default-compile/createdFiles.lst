@@ -1,0 +1,5 @@
+com\example\model\Equipement.class
+com\example\model\Reservation.class
+com\example\model\Salle.class
+com\example\App.class
+com\example\model\Utilisateur.class
