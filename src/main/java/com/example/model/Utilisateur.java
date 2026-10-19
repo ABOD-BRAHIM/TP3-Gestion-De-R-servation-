@@ -1,11 +1,15 @@
 package com.example.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
+@Table(name = "utilisateurs")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Utilisateur {
 
     @Id
@@ -17,6 +21,9 @@ public class Utilisateur {
 
     @Column(nullable = false)
     private String nom;
+
+    @Version
+    private int version;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reservation> reservations = new HashSet<>();
@@ -61,6 +68,14 @@ public class Utilisateur {
 
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public void addReservation(Reservation reservation) {

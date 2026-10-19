@@ -1,5 +1,11 @@
-com\example\model\Equipement.class
+com\example\util\DataInitializer.class
 com\example\model\Reservation.class
-com\example\model\Salle.class
+com\example\MainApp.class
+com\example\model\Equipement.class
+com\example\service\ReservationService.class
 com\example\App.class
 com\example\model\Utilisateur.class
+com\example\model\Salle.class
+com\example\util\MigrationExecutor.class
+com\example\dao\ReservationDao.class
+com\example\util\PerformanceReport.class

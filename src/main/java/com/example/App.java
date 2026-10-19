@@ -185,6 +185,8 @@ public class App {
             reservationCascade.setDateFin(LocalDate.of(2026, 11, 2));
             reservationCascade.verifierDates();
 
+            Salle salleCascade = em.find(Salle.class, salleId);
+            salleCascade.addReservation(reservationCascade);
             userCascade.addReservation(reservationCascade);
 
             em.getTransaction().commit();

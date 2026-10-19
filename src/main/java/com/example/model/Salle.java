@@ -1,11 +1,16 @@
 package com.example.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "salles")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Salle {
 
     @Id
@@ -16,6 +21,11 @@ public class Salle {
     private String nom;
 
     private int capacite;
+
+    private String description;
+
+    @Version
+    private int version;
 
     @OneToMany(mappedBy = "salle",
             cascade = CascadeType.ALL,
@@ -64,6 +74,14 @@ public class Salle {
         this.capacite = capacite;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Set<Reservation> getReservations() {
         return reservations;
     }
@@ -89,6 +107,14 @@ public class Salle {
         reservation.setSalle(this);
     }
 
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public boolean estDisponible(LocalDate debut, LocalDate fin) {
 

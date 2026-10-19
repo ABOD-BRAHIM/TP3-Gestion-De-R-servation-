@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "reservations")
 public class Reservation {
 
     @Id
@@ -12,17 +13,22 @@ public class Reservation {
 
     private LocalDate dateReservation;
 
+    @Column(nullable = false)
     private LocalDate dateDebut;
 
+    @Column(nullable = false)
     private LocalDate dateFin;
 
-    @ManyToOne
-    @JoinColumn(name = "utilisateur_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utilisateur_id", nullable = false)
     private Utilisateur utilisateur;
 
-    @ManyToOne
-    @JoinColumn(name = "salle_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "salle_id", nullable = false)
     private Salle salle;
+
+    @Version
+    private int version;
 
     public Reservation() {
     }
@@ -87,6 +93,14 @@ public class Reservation {
             Utilisateur utilisateur, Salle salle) {
         utilisateur.addReservation(this);
         salle.addReservation(this);
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public void verifierDates() {
